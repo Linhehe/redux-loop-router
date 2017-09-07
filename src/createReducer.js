@@ -1,4 +1,4 @@
-import {loop, Effects} from 'redux-loop';
+import {loop, Cmd} from 'redux-loop';
 
 import {
   TRANSITION,
@@ -10,7 +10,7 @@ export default (tasks) => (state = {}, action) => {
     return loop(
       state
     ,
-      Effects.call(tasks.transition, action.method, action.args)
+      Cmd.call(tasks.transition, action.method, action.args)
     );
   }
 
@@ -19,9 +19,9 @@ export default (tasks) => (state = {}, action) => {
       ...state,
       location: action.location,
     },
-      Effects.none()
+      Cmd.none
     );
   }
 
-  return loop(state, Effects.none());
+  return loop(state, Cmd.none);
 }
